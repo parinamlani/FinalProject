@@ -1,0 +1,169 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="product">
+    <form novalidate
+          #productForm="ngForm" (submit)="saveEmployee(productForm)">
+
+          <input type="hidden" name="id" [value]="product.id">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="name">Employee Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 name="name"
+                 type="text"
+                 placeholder="Name (required)"
+                 required
+                 minlength="4"
+                 maxlength="40"
+                 [(ngModel)]=product.name
+                 #name="ngModel"
+                 [ngClass]="{'is-invalid': (name.touched || name.dirty) && !name.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="name.errors?.required">
+              Employee name is required.
+            </span>
+            <span *ngIf="name.errors?.minlength">
+              employee name must be at least four characters.
+            </span>
+            <span *ngIf="name.errors?.maxlength">
+              employee name must be atmost 40 characters.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="email">Email</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 name="email"
+                 type="text"
+                 placeholder="email (required)"
+                 required [email]="product.email!==''"
+                 [(ngModel)]=product.email
+                 #email="ngModel"
+                 [ngClass]="{'is-invalid': (email.touched || email.dirty) && !email.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="email.errors?.required">
+              email is required.
+            </span>
+            <span class="help-block" *ngIf="email.errors?.invalid && email.touched"
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="password">password</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 type="password"
+                 placeholder="password (required)"
+                 required
+                 [(ngModel)]=product.password
+                 name="password"
+                 #password="ngModel"
+                 [ngClass]="{'is-invalid': (password.touched || password.dirty) && !password.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="password.errors?.required">
+              password is required.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="dob">Date Of Birth</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 type="text"
+                 placeholder="dd/mm/yyyy (required)"
+                 required
+                 [(ngModel)]=product.dob
+                 name="dob"
+                 maxlength="10"
+                 minlength="10"
+                 #dob="ngModel"
+                 [ngClass]="{'is-invalid': (dob.touched || dob.dirty) && !dob.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="dob.errors?.required">
+              please input date
+            </span>
+            <span *ngIf="dob.errors?.minlength">
+              please input date of birth
+            </span>
+            <span *ngIf="dob.errors?.maxlength">
+            please input proper format
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="doj">Date Of Joining</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 type="text"
+                 placeholder="dd/mm/yyyy (required)"
+                 required
+                 [(ngModel)]=product.doj
+                 name="doj"
+                 maxlength="10"
+                 minlength="10"
+                 #doj="ngModel"
+                 [ngClass]="{'is-invalid': (doj.touched || doj.dirty) && !doj.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="doj.errors?.required">
+              please input date
+            </span>
+            <span *ngIf="dob.errors?.minlength">
+              please input date of birth
+            </span>
+            <span *ngIf="dob.errors?.maxlength">
+            please input proper format
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="col-md-4"  >
+          <button class="btn btn-primary mr-3"
+                  style="width:80px"
+                  type="button"
+                  [title]="productForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!productForm.valid"
+                  (click)="saveEmployee()">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/products']">
+            Cancel
+          </button>
+          <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this product"
+                  (click)="deleteEmployee()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage">{{errorMessage}}
+</div>

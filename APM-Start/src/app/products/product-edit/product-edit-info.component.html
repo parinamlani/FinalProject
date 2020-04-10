@@ -1,0 +1,77 @@
+<div class="card-body">
+  <form novalidate
+        #productForm="ngForm">
+    <fieldset>
+      <legend>Basic employee Information</legend>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="productNameId">Employee Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="productNameId"
+                 type="text"
+                 placeholder="Name (required)"
+                 required
+                 minlength="3"
+                 [(ngModel)]=product.productName
+                 name="productName"
+                 #productNameVar="ngModel"
+                 [ngClass]="{'is-invalid': (productNameVar.touched ||
+                                            productNameVar.dirty ||
+                                            product.id !== 0) &&
+                                            !productNameVar.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="productNameVar.errors?.required">
+              Employee name is required.
+            </span>
+            <span *ngIf="productNameVar.errors?.minlength">
+              Employee name must be at least three characters.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="productCodeId">Employee Code</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="productCodeId"
+                 type="text"
+                 placeholder="Code (required)"
+                 required
+                 [(ngModel)]=product.productCode
+                 name="productCode"
+                 #productCodeVar="ngModel"
+                 [ngClass]="{'is-invalid': (productCodeVar.touched ||
+                                            productCodeVar.dirty ||
+                                            product.id !== 0) &&
+                                            !productCodeVar.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="productCodeVar.errors?.required">
+              employee code is required.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="descriptionId">Description</label>
+        <div class="col-md-8">
+          <textarea class="form-control"
+                    id="descriptionId"
+                    placeholder="Description"
+                    rows=3
+                    [(ngModel)]=product.description
+                    name="description"></textarea>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class='alert alert-danger'
+     *ngIf='errorMessage'>{{errorMessage}}
+</div>

@@ -1,0 +1,87 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="empleave">
+    <form novalidate
+          #empleaveForm="ngForm">
+
+
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label"
+                   for="leave">Leave Type</label>
+                   <select id="leave" name="leave"
+                   [(ngModel)]="leave" class="form-control">
+                  <option *ngFor="let empleave of leaves" [value]="empleave.id">
+                    {{empleave.leavename}}
+                  </option>
+
+                  </select>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="fromdt">from date : </label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="fromdt"
+                 type="date"
+                 placeholder="date (required)"
+                 required
+                 [(ngModel)]=empleave.fromdt
+                 name="fromdt"
+                 #productCodeVar="ngModel"
+                 [ngClass]="{'is-invalid': (empleaveCodeVar.touched || empleaveCodeVar.dirty) && !empleaveCodeVar.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="empleaveVar.errors?.required">
+              please input date
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="todt">To Date :</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="todt"
+                 type="date"
+                 placeholder="date (required)"
+                 required
+                 [(ngModel)]=product.todt
+                 name="todt"
+                 #productCodeVar="ngModel"
+                 [ngClass]="{'is-invalid': (empleaveCodeVar.touched || empleaveCodeVar.dirty) && !empleaveCodeVar.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="empleaveCodeVar.errors?.required">
+              please input date
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="col-md-4"  >
+          <button class="btn btn-primary mr-3"
+                  style="width:80px"
+                  type="button"
+                  [title]="empleaveForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!empleaveForm.valid"
+                  (click)="saveEmpleave()">
+            Save
+          </button>
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage">{{errorMessage}}
+</div>
+

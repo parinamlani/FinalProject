@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-header">
+    My Leaves
+  </div>
+
+  <div class="table-responsive">
+    <table class="table mb-0"
+
+           <thead>
+             <tr>
+               <th>casual : </th>
+               <th>sick : </th>
+               <th>restricted : </th>
+               <td>
+                <button class="btn btn-outline-primary btn-sm"
+                style="width:80px">
+                  Apply
+                </button>
+               </td>
+             </tr>
+            <tr>
+
+              <th>Leave Dates</th>
+              <th>Leave Type</th>
+              <th>number of Days</th>
+              <th>status</th>
+              <th></th>
+            </tr>
+          </thead>
+
+
+          <td>
+            {{empleave.fromdt}} to {{empleave.todt}}
+          </td>
+          <td>{{ empleave.leavetype }}</td>
+          <td>{{ empleave.noOfDays }}</td>
+          <td>{{ empleave.status }}</td>

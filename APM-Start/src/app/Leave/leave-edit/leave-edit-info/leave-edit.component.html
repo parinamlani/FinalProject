@@ -1,0 +1,99 @@
+
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="leave">
+    <form novalidate
+          #leaveForm="ngForm" (submit)="saveLeave(leaveForm)">
+
+          <input type="hidden" name="id" [value]="leave.id">
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="leavename">Leave Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="leavename"
+                 type="text"
+                 placeholder=" Leave Name (required)"
+                 required
+                 minlength="5"
+                 [(ngModel)]=leave.leavename
+                 name="leaveName"
+                 #leavename="ngModel"
+                 [ngClass]="{'is-invalid': (leavename.touched || leavename.dirty) && !leavename.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="leavename.errors?.required">
+              Leave name is required.
+            </span>
+            <span *ngIf="leavename.errors?.minlength">
+              Leave name must be at least five characters.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="leaveNo">Number of Days</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="leaveNumber"
+                 type="number"
+                 placeholder="number (required)"
+                 required
+                 maxlength="2"
+                 [(ngModel)]=leave.numberOfDays
+                 name="numofdays"
+                 #numberOfDays="ngModel"
+                 [ngClass]="{'is-invalid': (numberOfDays.touched || numberOfDays.dirty) && !numberOfDays.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="numberOfDays.errors?.required">
+              number is required.
+              <span *ngIf="numberOfDays.errors?.maxlength">
+               must be less between 1-30
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+
+
+
+      <div class="form-group row mb-2">
+        <div class="col-md-4"  >
+          <button class="btn btn-primary mr-3"
+                  style="width:80px"
+                  type="button"
+                  [title]="leaveForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!leaveForm.valid"
+                  (click)="saveLeave()">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/leaves']">
+            Cancel
+          </button>
+          <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Leave"
+                  (click)="deleteLeave()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage">{{errorMessage}}
+</div>
